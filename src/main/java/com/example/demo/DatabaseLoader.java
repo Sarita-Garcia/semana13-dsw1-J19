@@ -7,48 +7,29 @@ import org.springframework.stereotype.Component;
 @Component
 public class DatabaseLoader implements CommandLineRunner {
 
-	private final InstrumentoRepository repositoryI;
-	private final MusicoRepository repositoryM;
-	private final BandaRepository repositoryB;
-	private final IntegranteRepository repositoryN;
+	private final ProductoRepository repu;
+	private final CategoriaRepository repo2;
 
 	@Autowired
 	public DatabaseLoader(
-		InstrumentoRepository repositoryI,
-		MusicoRepository repositoryM,
-		BandaRepository repositoryB,
-		IntegranteRepository repositoryN
+		ProductoRepository repu,
+		CategoriaRepository repo2
 		) {
-		this.repositoryI = repositoryI;
-		this.repositoryM = repositoryM;
-		this.repositoryB = repositoryB;
-		this.repositoryN = repositoryN;
+		this.repu=repu;
+		this.repo2=repo2;
 	}
 
 	@Override
 	public void run(String... strings) throws Exception {
-
-		this.repositoryI.save(new Instrumento("Guitarra", "Cuerda", "de madera, con caja de resonancia, 6 cuerdas templadas"));
-		this.repositoryI.save(new Instrumento("Ukelele","Cuerda","de madera, con caja de resonancia pequeña, 4 cuerdas templadas"));
-		this.repositoryI.save(new Instrumento("Melódica","Viento","teclado pequeño de 2 octavas, sonorizado por soplido"));
-		Instrumento iVoz = new Instrumento("Voz","Viento",".");
-		this.repositoryI.save(iVoz);
-		Instrumento iGuitarraElectrica = new Instrumento("Guitarra Electrica","Electrónico", ".");
-		this.repositoryI.save(iGuitarraElectrica);
-		this.repositoryI.save(new Instrumento("Batería","Percusión","."));
-
-		this.repositoryM.save(new Musico("Daniel F"));
-		Musico mFreddy = new Musico("Freddy");
-		this.repositoryM.save(mFreddy);
-		Musico mBrian = new Musico("Brian");
-		this.repositoryM.save(mBrian);
-
-		Banda bQueen = new Banda("Queen");
-		this.repositoryB.save(bQueen);
-
-		this.repositoryN.save(new Integrante(bQueen, mFreddy, iVoz));
-		this.repositoryN.save(new Integrante(bQueen, mBrian, iGuitarraElectrica));
-
-
+		Categoria cate=new Categoria("GUCCI");
+		Categoria luiv=new Categoria("LUIVUTTON");
+		this.repo2.save(cate);
+		this.repo2.save(luiv);
+		Producto zap=new Producto("Seints tenn",480.50f,cate);
+		Producto sandalia=new Producto("Crocs",1500.50f,luiv);
+		Producto cruc=new Producto("Crucci",3500.50f,luiv);
+		this.repu.save(zap);
+		this.repu.save(sandalia);
+		this.repu.save(cruc);
 	}
 }
